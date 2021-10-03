@@ -8,11 +8,11 @@ public class Plant {
     private ArrayList<Plant> mPlants;
     private String mName;
     private String mPhoto;
-    private String mSpecies;
-    private int mDefaultWatering;
+    private Species mSpecies;
+    private int mDefaultWateringInterval;
     private String mAccountId;
     private UUID mId;
-    private int mIsDefault; //дефолтныое изображение цветка или нет
+    private boolean mIsDefault; //дефолтныое изображение цветка или нет
     private LocalDate mDayForWatering; //день для полива
 
     private ArrayList<LocalDate> daysWatering = new ArrayList<>(); // список со всеми днями полива цветка
@@ -66,20 +66,20 @@ public class Plant {
         mPhoto = photo;
     }
 
-    public String getSpecies() {
+    public Species getSpecies() {
         return mSpecies;
     }
 
-    public void setSpecies(String species) {
+    public void setSpecies(Species species) {
         mSpecies = species;
     }
 
-    public int getDefaultWatering() {
-        return mDefaultWatering;
+    public int getDefaultWateringInterval() {
+        return mDefaultWateringInterval;
     }
 
-    public void setDefaultWatering(int watering) {
-        mDefaultWatering = watering;
+    public void setDefaultWateringInterval(int defaultWateringInterval) {
+        mDefaultWateringInterval = defaultWateringInterval;
     }
 
     public LocalDate getDayForWatering() {
@@ -90,11 +90,11 @@ public class Plant {
         mDayForWatering = dayForWatering;
     }
 
-    public int isDefault() {
+    public boolean isDefault() {
         return mIsDefault;
     }
 
-    public void setIsDefault(int isDefault) {
+    public void setIsDefault(boolean isDefault) {
         mIsDefault = isDefault;
     }
 }

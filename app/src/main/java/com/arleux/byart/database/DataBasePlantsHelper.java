@@ -25,7 +25,8 @@ public class DataBasePlantsHelper extends SQLiteOpenHelper{
                 PlantsTable.Cols.NAME +","+
                 PlantsTable.Cols.PHOTO +","+
                 PlantsTable.Cols.SPECIES +","+
-                PlantsTable.Cols.DEFAULT_WATERING +","+
+                PlantsTable.Cols.DEFAULT_WATERING_INTERVAL +","+
+                PlantsTable.Cols.CUSTOM_WATERING_INTERVAL +","+
                 PlantsTable.Cols.DAY_FOR_WATERING +","+
                 PlantsTable.Cols.IS_DEFAULT +","+
                 PlantsTable.Cols.WATERING_DAYS+")"
@@ -37,7 +38,8 @@ public class DataBasePlantsHelper extends SQLiteOpenHelper{
         db.execSQL("create table " + SpeciesTable.NAME + "(" +
                 " _id integer primary key autoincrement, " +
                 SpeciesTable.Cols.SPECIES +","+
-                SpeciesTable.Cols.DEFAULT_WATERING +
+                SpeciesTable.Cols.DEFAULT_WATERING_INTERVAL +
+                SpeciesTable.Cols.CUSTOM_WATERING_INTERVAL +
                 ")"
         );
     }

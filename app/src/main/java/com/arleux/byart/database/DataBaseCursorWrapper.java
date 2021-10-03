@@ -2,8 +2,10 @@ package com.arleux.byart.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
+import android.widget.GridLayout;
 
 import com.arleux.byart.Plant;
+import com.arleux.byart.PlantsLab;
 import com.arleux.byart.Species;
 import com.arleux.byart.database.DataBaseScheme.PlantsTable;
 import com.arleux.byart.database.DataBaseScheme.AccountTable;
@@ -14,7 +16,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 public class DataBaseCursorWrapper extends CursorWrapper {
     private Plant plant;
@@ -30,29 +34,34 @@ public class DataBaseCursorWrapper extends CursorWrapper {
         return getString(getColumnIndex(AccountTable.Cols.ACCOUNT_UID)); // возвращаю значение из таблички для данного курсора
     }
     public Species getSpecies(){
-        String species_id = getString(getColumnIndex(SpeciesTable.Cols.SPECIES));
-        int defaultWatering = getInt(getColumnIndex(SpeciesTable.Cols.DEFAULT_WATERING));
+        Species species = (Species) deserialize(getBlob(getColumnIndex(SpeciesTable.Cols.SPECIES)));
+        int defaultWatering = getInt(getColumnIndex(SpeciesTable.Cols.DEFAULT_WATERING_INTERVAL));
+        int customWateringInterval = getInt(getColumnIndex(SpeciesTable.Cols.CUSTOM_WATERING_INTERVAL));
 
-        mSpecies = new Species(Integer.valueOf(species_id));
-        mSpecies.setDefaultWateringInterval(defaultWatering);
-        return mSpecies;
+        return species;
     }
     public Plant getPlant(){
         String accountId = getString(getColumnIndex(PlantsTable.Cols.ACCOUNT_ID));
         String id = getString(getColumnIndex(PlantsTable.Cols.PLANT_ID));
         String name = getString(getColumnIndex(PlantsTable.Cols.NAME));
         String photo = getString(getColumnIndex(PlantsTable.Cols.PHOTO));
+//        Species species = (Species) deserialize(getBlob(getColumnIndex(PlantsTable.Cols.SPECIES))); //не могу так сделать, потому что Object не кастится к нестандартным джававским классам
         String species = getString(getColumnIndex(PlantsTable.Cols.SPECIES));
-        int defaultWatering = getInt(getColumnIndex(PlantsTable.Cols.DEFAULT_WATERING));
+        for (Species s: PlantsLab.getSpeciesList()){
+            if (s.species().equals(species))
+                mSpecies = s;
+        }
+
+        int defaultWateringInterval = getInt(getColumnIndex(PlantsTable.Cols.DEFAULT_WATERING_INTERVAL));
         LocalDate dayForWatering = (LocalDate) deserialize(getBlob(getColumnIndex(PlantsTable.Cols.DAY_FOR_WATERING)));
-        int isDefault = getInt(getColumnIndex(PlantsTable.Cols.IS_DEFAULT));
+        boolean isDefault = (boolean) deserialize(getBlob(getColumnIndex(PlantsTable.Cols.IS_DEFAULT)));
         ArrayList<LocalDate> wateringDays = (ArrayList<LocalDate>) deserialize(getBlob(getColumnIndex(PlantsTable.Cols.WATERING_DAYS)));
 
         plant = new Plant(UUID.fromString(id)); //чтобы не наплодить одинаковых объектов
         plant.setAccountId(accountId);
         plant.setName(name);
-        plant.setSpecies(species);
-        plant.setDefaultWatering(defaultWatering);
+        plant.setSpecies(mSpecies);
+        plant.setDefaultWateringInterval(defaultWateringInterval);
         plant.setPhoto(photo);
         plant.setDayForWatering(dayForWatering);
         plant.setIsDefault(isDefault);
@@ -61,7 +70,7 @@ public class DataBaseCursorWrapper extends CursorWrapper {
         return plant;
     }
 
-    public static Object deserialize(byte[] bytes){ // для расшифровки массивов byte[]
+    private static Object deserialize(byte[] bytes){ // для расшифровки массивов byte[]
         Object obj = new Object();
         try(ByteArrayInputStream b = new ByteArrayInputStream(bytes)){
             try(ObjectInputStream o = new ObjectInputStream(b)){

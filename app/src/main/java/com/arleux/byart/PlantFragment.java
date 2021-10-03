@@ -3,6 +3,7 @@ package com.arleux.byart;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -51,10 +53,10 @@ public class PlantFragment extends Fragment {
     private UUID mId;
 
     private Picture mPlantPicture;
-    private Integer mPlantSpecies;
+    private Species mPlantSpecies;
     private RecyclerView mDialogRecyclerView;
     private List<String> mAssetsPicturesList;
-    private List<Integer> mPlantSpeciesList;
+    private List<Species> mSpeciesList;
     private AlertDialog picturesDialog;
     private TextView mWateringBottleText;
 
@@ -105,7 +107,8 @@ public class PlantFragment extends Fragment {
         super.onViewCreated(view,savedInstanceState );
 
         mAssetsPicturesList = new ArrayList<>();
-        mPlantSpeciesList = PlantSpecies.getPlantSpecies(); //список с видами цветков из строк из ресурсов
+        mSpeciesList = PlantsLab.getSpeciesList(); //список с видами цветков из строк из ресурсов
+
         try {
             String[] pictures = getActivity().getAssets().list("plantsPictures"); //загружаю все изображения из assets пока в виде названия изображения
             for (String picture: pictures){
@@ -115,11 +118,11 @@ public class PlantFragment extends Fragment {
             e.printStackTrace();
         }
         //если тот объект из интента является дефолтным, то я создаю цветок
-        if (mPlant.isDefault() == 1){
+        if (mPlant.isDefault()){
             View viewForDialogCreate = getLayoutInflater().inflate(R.layout.dialog_create_plant_recycler, null, false);
             mDialogRecyclerView = viewForDialogCreate.findViewById(R.id.dialog_create_recycler_view);
             mDialogRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3)); //ресайклер для изображений в диалоговом окне
-            mDialogRecyclerView.setAdapter(new DialogPlantAdapter(mAssetsPicturesList, mPlantSpeciesList));
+            mDialogRecyclerView.setAdapter(new DialogPlantAdapter(mAssetsPicturesList, mSpeciesList));
 
             picturesDialog = new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.create_plant_title_dialog)
@@ -135,7 +138,7 @@ public class PlantFragment extends Fragment {
             picturesDialog.show();
         }
     }
-    private void callDialogForName(Picture picture, Integer species){ //диалоговое окно с выбором имени цветка
+    private void callDialogForName(){ //диалоговое окно с выбором имени цветка
         View view = getLayoutInflater().inflate(R.layout.dialog_create_plant_name, null, false);
         plantNameForDialog = view.findViewById(R.id.write_plant_name);
 
@@ -174,25 +177,25 @@ public class PlantFragment extends Fragment {
     }
     public void updateView() {
         mNameText.setText(mPlant.getName());
+        if (!mPlant.isDefault())
+            mSpeciesText.setText(mPlant.getSpecies().species());
+        mWateringBottleText.setText(String.valueOf(mPlant.getDayForWatering()));
         try {
             mPhoto.setImageDrawable(Drawable.createFromStream(getActivity().getAssets().open(mPlant.getPhoto()), null));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mSpeciesText.setText(mPlant.getSpecies());
-        mWateringBottleText.setText(String.valueOf(mPlant.getDayForWatering()));
     }
-    public void addPlant(Picture picture, Integer species, LocalDate wateringDay){//добавит цветок в бд
-        int wateringInterval = PlantsLab.getSpecies(getActivity(), Integer.valueOf(species))
-                .getDefaultWateringInterval();
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void addPlant(Picture picture, Species species, LocalDate wateringDay){//добавит цветок в бд
         mPlant.setName(Character.valueOf(plantNameForDialog.getText().toString().charAt(0)).toString().toUpperCase()+plantNameForDialog.getText().toString().substring(1));
-        mPlant.setSpecies(getActivity().getResources().getString(species));
+        mPlant.setSpecies(species);
         mPlant.setPhoto(picture.getPathName()); //получаю id такой фотки из ресурсов
         mPlant.setAccountId(account);
-        mPlant.setDefaultWatering(wateringInterval);
-        mPlant.setDayForWatering(wateringDay.plus(wateringInterval, ChronoUnit.DAYS));
-        mPlant.setIsDefault(0);
-        mPlantsLab.addPlant(MainFragment.defaultPlant(PlantsLab.getIdLogInUser(getActivity()))); // добавляю в бд
+        mPlant.setDefaultWateringInterval(species.getDefaultWateringInterval());
+        mPlant.setDayForWatering(wateringDay.plus(species.getDefaultWateringInterval(), ChronoUnit.DAYS));
+        mPlant.setIsDefault(false);
+        mPlantsLab.addPlant(MainFragment.defaultPlant(PlantsLab.getIdLogInUser(getContext()))); // добавляю в бд
     }
 
     public void updatePlant(Plant plant){
@@ -203,7 +206,7 @@ public class PlantFragment extends Fragment {
         return mPlantPicture;
     } //получение картинки цветка после его создания
 
-    public Integer getPlantSpecies() {
+    public Species getPlantSpecies() {
         return mPlantSpecies;
     } //получение вида цветка после его создания
 
@@ -211,7 +214,7 @@ public class PlantFragment extends Fragment {
         private ImageView mPlantImage;
         private TextView mSpecies;
         private Picture localPlantPicture;
-        private Integer localPlantSpecies;
+        private Species localPlantSpecies;
 
 
         public DialogPlantHolder(LayoutInflater inflater, ViewGroup parent, int viewType) {
@@ -221,30 +224,30 @@ public class PlantFragment extends Fragment {
         mPlantImage = itemView.findViewById(R.id.dialog_plant_image);
         mSpecies = itemView.findViewById(R.id.dialog_plant_species);
     }
-    public void bind(String namePicture, Integer plantSpecies) throws IOException {// namePicture - по типу zamik.png
-        InputStream inputStream = getActivity().getAssets().open("plantsPictures/"+namePicture);
+    public void bind(String namePicture, Species species) throws IOException {// namePicture - по типу zamik.png
+        InputStream inputStream = getContext().getAssets().open("plantsPictures/"+namePicture);
         mPlantImage.setImageDrawable(Drawable.createFromStream(inputStream, null));
-        mSpecies.setText(getActivity().getResources().getString(plantSpecies));
-        localPlantSpecies = plantSpecies; //вид выбранного цветка
+        mSpecies.setText(species.species());
+        localPlantSpecies = species; //вид выбранного цветка
         localPlantPicture = new Picture(namePicture); //картинка выбранного цветка
     }
 
         @Override
         public void onClick(View view) {
             picturesDialog.hide(); //диалог с выбором цветков
-            mPlantSpecies = localPlantSpecies; //чтобы можно было получить доступ к его геттеру из внешнего класса
-            mPlantPicture = localPlantPicture; //чтобы можно было получить доступ к его геттеру из внешнего класса
-            callDialogForName(localPlantPicture, localPlantSpecies);
+            mPlantPicture = localPlantPicture;
+            mPlantSpecies = localPlantSpecies;
+            callDialogForName();
         }
     }
 
 private class DialogPlantAdapter extends RecyclerView.Adapter<DialogPlantHolder>{//Адаптер для диалог окна с выбором цветков
     List<String> mPictures;
-    List<Integer> mSpecies;
+    List<Species> mSpecies;
 
-    public DialogPlantAdapter(List<String> pictures, List<Integer> names){
+    public DialogPlantAdapter(List<String> pictures, List<Species> species){
         mPictures = pictures;
-        mSpecies = names;
+        mSpecies = species;
     }
     @Override
     public DialogPlantHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -255,9 +258,9 @@ private class DialogPlantAdapter extends RecyclerView.Adapter<DialogPlantHolder>
     @Override
     public void onBindViewHolder(DialogPlantHolder holder, int position) {
         String namePicture = mPictures.get(position);
-        Integer plantSpecies = mSpecies.get(position);
+        Species species = mSpecies.get(position);
         try {
-            holder.bind(namePicture, plantSpecies);
+            holder.bind(namePicture, species);
         } catch (IOException e) {
             e.printStackTrace();
         }

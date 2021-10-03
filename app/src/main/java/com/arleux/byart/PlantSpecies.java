@@ -10,6 +10,7 @@ public class PlantSpecies {
         species = new ArrayList<>();
         species.add(R.string.kaktus);
         species.add(R.string.zamik);
+
         return species;
     }
 }

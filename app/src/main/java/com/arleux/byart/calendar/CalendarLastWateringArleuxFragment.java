@@ -1,6 +1,5 @@
 package com.arleux.byart.calendar;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,7 +14,6 @@ import androidx.work.WorkRequest;
 import com.arleux.byart.Plant;
 import com.arleux.byart.PlantFragment;
 import com.arleux.byart.R;
-import com.arleux.byart.WateringService;
 import com.arleux.byart.WateringWorker;
 
 import java.util.concurrent.TimeUnit;
@@ -59,20 +57,16 @@ public class CalendarLastWateringArleuxFragment extends CalendarArleuxFragment {
             mPlantFragment.addPlant(mPlantFragment.getPlantPicture(), mPlantFragment.getPlantSpecies(), mCalendarArleux.getCurrentDate());
             mPlantFragment.updateView();
 
-        /*    WateringService wateringService = new WateringService();
-            Intent intent = WateringService.newIntent(getContext());
-            wateringService.startService(intent);
-
-         */
+            //Уведомления:
             WorkRequest workRequest = new OneTimeWorkRequest.Builder(WateringWorker.class) //Для китайских тлф нужно копаться в настройках приложения
-                    .setInitialDelay(mPlant.getDayForWatering(), TimeUnit.SECONDS)
+                    .setInitialDelay(mPlant.getDefaultWateringInterval(), TimeUnit.SECONDS)
                     .build();
             WorkManager.getInstance().enqueue(workRequest);
 
             getFragmentManager().beginTransaction().remove(mFragment).commit(); //удаляю фрагмент с календарем
         }
         else {
-            Toast.makeText(getActivity(), R.string.dialog_calendar_choose_actual_date, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.dialog_calendar_choose_actual_date, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -84,7 +78,7 @@ public class CalendarLastWateringArleuxFragment extends CalendarArleuxFragment {
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) { //зачем-то обязательно нужно, иначе вызлвется два раза: и для DOWN и для UP
                     if (keyCode == keyEvent.KEYCODE_BACK) {
-                        Toast.makeText(getActivity(), R.string.dialog_calendar_choose_date, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.dialog_calendar_choose_date, Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 }

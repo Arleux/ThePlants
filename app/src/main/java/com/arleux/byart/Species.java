@@ -1,19 +1,16 @@
 package com.arleux.byart;
 
 public class Species {
-    private Integer mSpecies;
+    private String mSpecies;
     private int mDefaultWateringInterval;
-    private int mCustomWatering;
+    private int mCustomWateringInterval;
 
-    public Species(Integer species){
+    public Species(String species){
         mSpecies = species;
     }
-    public Integer getSpecies() {
+
+    public String species() {
         return mSpecies;
-    }
-
-    public void setSpecies(Integer species) {
-        mSpecies = species;
     }
 
     public int getDefaultWateringInterval() {
@@ -24,11 +21,11 @@ public class Species {
         mDefaultWateringInterval = defaultWateringInterval;
     }
 
-    public int getCustomWatering() {
-        return mCustomWatering;
+    public int getCustomWateringInterval() {
+        return mCustomWateringInterval;
     }
 
-    public void setCustomWatering(int customWatering) {
-        mCustomWatering = customWatering;
+    public void setCustomWateringInterval(int customWateringInterval) {
+        mCustomWateringInterval = customWateringInterval;
     }
 }

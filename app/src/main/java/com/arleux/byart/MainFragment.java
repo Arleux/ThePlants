@@ -175,8 +175,9 @@ public class MainFragment extends Fragment {
     public static Plant defaultPlant(String accountId){
         Plant plant = new Plant(UUID.randomUUID());
         plant.setPhoto(DEFAULT_PHOTO);
-        plant.setIsDefault(1);
+        plant.setIsDefault(true);
         plant.setAccountId(accountId);
+        plant.setSpecies(new Species("default"));
         return plant;
     }
 }
