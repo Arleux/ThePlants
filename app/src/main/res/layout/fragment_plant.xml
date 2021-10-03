@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_image"
+        android:layout_width="210dp"
+        android:layout_height="300dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/plant_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop">
+
+        </ImageView>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/plant_watering_bottle"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/card_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/card_image">
+
+        <TextView
+            android:id="@+id/plant_watering_bottle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+        </TextView>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/plant_name"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/card_image"
+        app:layout_constraintStart_toStartOf="@+id/card_image"
+        app:layout_constraintTop_toBottomOf="@+id/card_image"></TextView>
+
+    <TextView
+        android:id="@+id/plant_species"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/plant_name"
+        app:layout_constraintStart_toStartOf="@+id/plant_name"
+        app:layout_constraintTop_toBottomOf="@+id/plant_name"></TextView>
+
+    <TextView
+        android:id="@+id/pot_plant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Цвет горшка"
+        app:layout_constraintEnd_toEndOf="@+id/plant_species"
+        app:layout_constraintStart_toStartOf="@+id/plant_species"
+        app:layout_constraintTop_toBottomOf="@+id/plant_species" />
+
+    <LinearLayout
+        android:id="@id/pot_image"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/card_image"
+        app:layout_constraintTop_toBottomOf="@+id/pot_plant">
+
+        <ImageView
+            android:id="@+id/pot_image_green"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#00E676"
+            android:text="Цвет горшка" />
+
+        <ImageView
+            android:id="@+id/pot_image_blue"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#42A5F0"
+            android:text="Цвет горшка" />
+
+        <ImageView
+            android:id="@+id/pot_image_red"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#F44336"
+            android:text="Цвет горшка" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/date_watering_button"
+        android:layout_width="240dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/pot_image"
+        app:layout_constraintStart_toStartOf="@+id/card_image"
+        app:layout_constraintTop_toBottomOf="@+id/pot_image" />
+
+    <Button
+        android:id="@+id/story_watering_button"
+        android:layout_width="240dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/date_watering_button"
+        app:layout_constraintStart_toStartOf="@+id/card_image"
+        app:layout_constraintTop_toBottomOf="@+id/date_watering_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

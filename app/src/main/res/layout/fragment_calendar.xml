@@ -1,0 +1,1403 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="550dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="350dp"
+            android:layout_height="550dp"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/calendar_name"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:text="Выберите дату последнего полива вашего цветка"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <LinearLayout
+                android:id="@+id/month_ll"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/calendar_name">
+
+                <ImageView
+                    android:id="@+id/navigate_before_arrow_iv"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:src="@drawable/navigate_before_arrow"></ImageView>
+
+                <TextView
+                    android:id="@+id/month_tv"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:gravity="right|center"
+                    android:textStyle="bold"
+                    android:textColor="#212121"></TextView>
+
+                <TextView
+                    android:id="@+id/year_tv"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left|center"
+                    android:textStyle="bold"
+                    android:textColor="#212121"></TextView>
+
+                <ImageView
+                    android:id="@+id/navigate_next_arrow_iv"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:src="@drawable/navigate_next_arrow"></ImageView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/week_days_ll"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/month_ll">
+
+                <TextView
+                    android:id="@+id/monday"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/calendar_week_monday"></TextView>
+
+                <TextView
+                    android:id="@+id/tuesday"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/calendar_week_tuesday"></TextView>
+
+                <TextView
+                    android:id="@+id/wednesday"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/calendar_week_wednesday"></TextView>
+
+                <TextView
+                    android:id="@+id/thursday"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/calendar_week_thursday"></TextView>
+
+                <TextView
+                    android:id="@+id/friday"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/calendar_week_friday"></TextView>
+
+                <TextView
+                    android:id="@+id/saturday"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/calendar_week_saturday"></TextView>
+
+                <TextView
+                    android:id="@+id/sunday"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/calendar_week_sunday"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/days_1_ll"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/week_days_ll">
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv1"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/one"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv2"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/two"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv3"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/three"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv4"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/four"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv5"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv5"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/five"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv6"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv6"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/six"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv7"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv7"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/seven"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/days_2_ll"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/days_1_ll">
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv8"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv8"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/eight"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv9"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv9"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/nine"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv10"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv10"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/ten"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv11"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv11"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/eleven"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv12"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv12"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twelve"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv13"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv13"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirteen"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv14"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv14"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/fourteen"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/days_3_ll"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/days_2_ll">
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv15"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv15"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/fiveteen"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv16"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv16"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/sixteen"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv17"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv17"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/seventeen"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv18"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv18"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/eighteen"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv19"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv19"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/nineteen"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv20"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv20"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twenty"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv21"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv21"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twenty_one"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/days_4_ll"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/days_3_ll">
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv22"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv22"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twenty_two"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv23"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv23"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twenty_three"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv24"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv24"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twenty_four"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv25"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv25"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twenty_five"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv26"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv26"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twenty_six"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv27"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv27"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twenty_seven"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv28"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv28"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twenty_eight"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/days_5_ll"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/days_4_ll">
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv29"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv29"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/twenty_nine"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv30"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv30"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirty"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv31"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv31"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirty_one"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv32"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv32"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirty_two"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv33"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv33"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirty_three"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv34"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv34"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirty_four"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv35"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv35"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirty_five"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/days_6_ll"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/days_5_ll">
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv36"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv36"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirty_six"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv37"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv37"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirty_seven"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv38"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv38"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirty_eight"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv39"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv39"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/thirty_nine"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv40"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv40"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/fourty"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv41"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv41"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/fourty_one"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/days_watering_iv42"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right|top"
+                        android:src="@drawable/watering">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/chose_day_line_iv42"
+                        android:layout_width="50dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:visibility="invisible"
+                        android:src="@drawable/line">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/fourty_two"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center"></TextView>
+                </FrameLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/dialog_calendar_watering_calendar_view_next_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/reset_button_next"
+                android:layout_marginRight="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/days_6_ll"></TextView>
+
+            <Button
+                android:id="@+id/choose_watering_days_ib"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/days_6_ll"></Button>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
