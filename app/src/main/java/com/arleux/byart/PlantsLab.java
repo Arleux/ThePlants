@@ -45,7 +45,6 @@ public class PlantsLab {
         values.put(DataBaseScheme.PlantsTable.Cols.ACCOUNT_ID, plant.getAccountId());
         values.put(DataBaseScheme.PlantsTable.Cols.PLANT_ID, plant.getId().toString());
         values.put(DataBaseScheme.PlantsTable.Cols.NAME, plant.getName());
-        values.put(DataBaseScheme.PlantsTable.Cols.PHOTO, plant.getPhoto());
         values.put(DataBaseScheme.PlantsTable.Cols.SPECIES, plant.getSpecies().species());
         values.put(DataBaseScheme.PlantsTable.Cols.DEFAULT_WATERING_INTERVAL, plant.getDefaultWateringInterval());
         values.put(DataBaseScheme.PlantsTable.Cols.DAY_FOR_WATERING, serialize(plant.getDayForWatering())); // следующий день полива
@@ -116,7 +115,7 @@ public class PlantsLab {
             else {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
-                    mPlants.add(cursor.getPlant());
+                    mPlants.add(cursor.getPlant(context));
                     cursor.moveToNext();
                 }
             }
@@ -136,7 +135,7 @@ public class PlantsLab {
             else {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
-                    mPlants.add(cursor.getPlant());
+                    mPlants.add(cursor.getPlant(context));
                     cursor.moveToNext();
                 }
             }
@@ -165,7 +164,7 @@ public class PlantsLab {
                 return null;
             else {
                 cursor.moveToFirst();
-                return cursor.getPlant();
+                return cursor.getPlant(context);
             }
         }
         finally {

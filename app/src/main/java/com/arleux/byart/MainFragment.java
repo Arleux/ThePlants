@@ -3,7 +3,6 @@ package com.arleux.byart;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,8 +24,6 @@ import java.util.UUID;
 import static com.arleux.byart.ThePlantsFragment.hideKeyboard;
 
 public class MainFragment extends Fragment {
-    public static String DEFAULT_PHOTO = "default/ic_account_add.png";
-    private int mAdapterPosition;
     private RecyclerView mPlantRecyclerView;
     private MainAdapter mAdapter;
     private List<Plant> plants;
@@ -55,10 +52,11 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        PlantsLab plantsLab = PlantsLab.get(getActivity());
-        plants = plantsLab.getPlants(getActivity(), PlantsLab.getIdLogInUser(getActivity()));
-        if (plants == null)
-            plantsLab.addPlant(defaultPlant(PlantsLab.getIdLogInUser(getActivity()))); //добавляю дефолтный цветок
+        PlantsLab plantsLab = PlantsLab.get(getContext());
+        plants = plantsLab.getPlants(getContext(), PlantsLab.getIdLogInUser(getContext()));
+        if (plants == null) {
+            plantsLab.addPlant(defaultPlant(getContext(), PlantsLab.getIdLogInUser(getContext()))); //добавляю дефолтный цветок
+        }
         setHasOptionsMenu(true);
     }
     @Override
@@ -70,9 +68,9 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_list, container, false);
-        hideKeyboard(getActivity(), container);  //для того чтобы спрятать клавиатуру при касании пальцем по экрану
+        hideKeyboard(getContext(), container);  //для того чтобы спрятать клавиатуру при касании пальцем по экрану
         mPlantRecyclerView =(RecyclerView) v.findViewById(R.id.main_recycler);
-        mPlantRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mPlantRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         updateUI();
 
         return v;
@@ -87,14 +85,14 @@ public class MainFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_menu:
-                startActivity(SettingsMainActivity.newIntent(getActivity()));
+                startActivity(SettingsMainActivity.newIntent(getContext()));
         }
         return true;
     }
 
     public void updateUI(){
-        PlantsLab plantsLab = PlantsLab.get(getActivity());
-        List<Plant> plants = plantsLab.getPlants(getActivity(), PlantsLab.getIdLogInUser(getActivity()));
+        PlantsLab plantsLab = PlantsLab.get(getContext());
+        List<Plant> plants = plantsLab.getPlants(getContext(), PlantsLab.getIdLogInUser(getContext()));
         if(mAdapter == null){
             mAdapter = new MainAdapter(plants);
             mPlantRecyclerView.setAdapter(mAdapter);
@@ -118,14 +116,14 @@ public class MainFragment extends Fragment {
         }
         public void bind(Plant plant) throws IOException {
             mPlant = plant;
-            mImage.setImageDrawable(Drawable.createFromStream(getActivity().getAssets().open(plant.getPhoto()), null));
+            mImage.setImageDrawable(mPlant.getImage());
             mPlantName.setText(mPlant.getName());
         }
 
         @Override
         public void onClick(View view) {
-            if (mPlant.getPhoto().equals(DEFAULT_PHOTO)){
-                AlertDialog dialog = new AlertDialog.Builder(getActivity())
+            if (mPlant.isDefault()){
+                AlertDialog dialog = new AlertDialog.Builder(getContext())
                         .setTitle(R.string.add_plant_title)
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
@@ -172,12 +170,11 @@ public class MainFragment extends Fragment {
             return mPlants.size();
         }
     }
-    public static Plant defaultPlant(String accountId){
+    public static Plant defaultPlant(Context context, String accountId){
         Plant plant = new Plant(UUID.randomUUID());
-        plant.setPhoto(DEFAULT_PHOTO);
+        plant.setSpecies(SpeciesCreation.getDefaultSpecies(context));
         plant.setIsDefault(true);
         plant.setAccountId(accountId);
-        plant.setSpecies(new Species("default"));
         return plant;
     }
 }

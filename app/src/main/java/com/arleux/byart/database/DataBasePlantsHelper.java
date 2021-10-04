@@ -23,7 +23,6 @@ public class DataBasePlantsHelper extends SQLiteOpenHelper{
                 PlantsTable.Cols.ACCOUNT_ID +","+
                 PlantsTable.Cols.PLANT_ID + ","+
                 PlantsTable.Cols.NAME +","+
-                PlantsTable.Cols.PHOTO +","+
                 PlantsTable.Cols.SPECIES +","+
                 PlantsTable.Cols.DEFAULT_WATERING_INTERVAL +","+
                 PlantsTable.Cols.CUSTOM_WATERING_INTERVAL +","+

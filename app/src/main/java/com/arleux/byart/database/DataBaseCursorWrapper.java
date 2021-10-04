@@ -1,12 +1,13 @@
 package com.arleux.byart.database;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
-import android.widget.GridLayout;
 
 import com.arleux.byart.Plant;
 import com.arleux.byart.PlantsLab;
 import com.arleux.byart.Species;
+import com.arleux.byart.SpeciesCreation;
 import com.arleux.byart.database.DataBaseScheme.PlantsTable;
 import com.arleux.byart.database.DataBaseScheme.AccountTable;
 import com.arleux.byart.database.DataBaseScheme.SpeciesTable;
@@ -16,9 +17,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 public class DataBaseCursorWrapper extends CursorWrapper {
     private Plant plant;
@@ -40,18 +39,15 @@ public class DataBaseCursorWrapper extends CursorWrapper {
 
         return species;
     }
-    public Plant getPlant(){
+    public Plant getPlant(Context context){
         String accountId = getString(getColumnIndex(PlantsTable.Cols.ACCOUNT_ID));
         String id = getString(getColumnIndex(PlantsTable.Cols.PLANT_ID));
         String name = getString(getColumnIndex(PlantsTable.Cols.NAME));
-        String photo = getString(getColumnIndex(PlantsTable.Cols.PHOTO));
-//        Species species = (Species) deserialize(getBlob(getColumnIndex(PlantsTable.Cols.SPECIES))); //не могу так сделать, потому что Object не кастится к нестандартным джававским классам
         String species = getString(getColumnIndex(PlantsTable.Cols.SPECIES));
-        for (Species s: PlantsLab.getSpeciesList()){
+        for (Species s: PlantsLab.getSpeciesList()){ //все, кроме дефолтного
             if (s.species().equals(species))
                 mSpecies = s;
         }
-
         int defaultWateringInterval = getInt(getColumnIndex(PlantsTable.Cols.DEFAULT_WATERING_INTERVAL));
         LocalDate dayForWatering = (LocalDate) deserialize(getBlob(getColumnIndex(PlantsTable.Cols.DAY_FOR_WATERING)));
         boolean isDefault = (boolean) deserialize(getBlob(getColumnIndex(PlantsTable.Cols.IS_DEFAULT)));
@@ -60,11 +56,17 @@ public class DataBaseCursorWrapper extends CursorWrapper {
         plant = new Plant(UUID.fromString(id)); //чтобы не наплодить одинаковых объектов
         plant.setAccountId(accountId);
         plant.setName(name);
-        plant.setSpecies(mSpecies);
-        plant.setDefaultWateringInterval(defaultWateringInterval);
-        plant.setPhoto(photo);
-        plant.setDayForWatering(dayForWatering);
         plant.setIsDefault(isDefault);
+        plant.setSpecies(mSpecies); //задаю вид до задания картинки (так нужно для обычных цветков)
+        plant.setDefaultWateringInterval(defaultWateringInterval);
+        if (plant.isDefault()) {
+            mSpecies = SpeciesCreation.getDefaultSpecies(context);
+            plant.setSpecies(mSpecies); //задаю вид для дефолтного цв отдельно, так как его нет в PlantsLab.getSpeciesList, иначе getSpecies().getImage() будет null
+            plant.setImage(mSpecies.getImage());
+        }
+        else
+            plant.setImage(plant.getSpecies().getImage());
+        plant.setDayForWatering(dayForWatering);
         plant.setDaysWatering(wateringDays);
 
         return plant;

@@ -16,6 +16,7 @@ import com.arleux.byart.PlantFragment;
 import com.arleux.byart.R;
 import com.arleux.byart.WateringWorker;
 
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
 public class CalendarLastWateringArleuxFragment extends CalendarArleuxFragment { // для указания последнего полива цветка при его создании
@@ -52,14 +53,15 @@ public class CalendarLastWateringArleuxFragment extends CalendarArleuxFragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View view) { //это когда я уже выбрал дату и нажал продолжить
-        if (mCalendarArleux.getCurrentDate().isBefore(mCalendarArleux.calendarDate())) { // чтобы не выбирали дату из будущего
+        if (!mCalendarArleux.getCurrentDate().isAfter(mCalendarArleux.calendarDate())) { // чтобы не выбирали дату из будущего
             mPlant.getDaysWatering().add(mCalendarArleux.getCurrentDate()); //добавляю в список с днями полива выбранный день
-            mPlantFragment.addPlant(mPlantFragment.getPlantPicture(), mPlantFragment.getPlantSpecies(), mCalendarArleux.getCurrentDate());
+            mPlantFragment.addPlant(mPlantFragment.getPlantSpecies(), mCalendarArleux.getCurrentDate());
             mPlantFragment.updateView();
 
+            long delay = ChronoUnit.DAYS.between(mCalendarArleux.calendarDate(), mPlant.getDayForWatering());
             //Уведомления:
             WorkRequest workRequest = new OneTimeWorkRequest.Builder(WateringWorker.class) //Для китайских тлф нужно копаться в настройках приложения
-                    .setInitialDelay(mPlant.getDefaultWateringInterval(), TimeUnit.SECONDS)
+                    .setInitialDelay(delay, TimeUnit.SECONDS)
                     .build();
             WorkManager.getInstance().enqueue(workRequest);
 

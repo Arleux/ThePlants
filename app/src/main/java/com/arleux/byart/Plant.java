@@ -1,5 +1,7 @@
 package com.arleux.byart;
 
+import android.graphics.drawable.Drawable;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -7,7 +9,7 @@ import java.util.UUID;
 public class Plant {
     private ArrayList<Plant> mPlants;
     private String mName;
-    private String mPhoto;
+    private Drawable mImage;
     private Species mSpecies;
     private int mDefaultWateringInterval;
     private String mAccountId;
@@ -58,12 +60,12 @@ public class Plant {
         mName = name;
     }
 
-    public String getPhoto() {
-        return mPhoto;
+    public Drawable getImage() {
+        return mImage;
     }
 
-    public void setPhoto(String photo) {
-        mPhoto = photo;
+    public void setImage(Drawable image) {
+        mImage = image;
     }
 
     public Species getSpecies() {

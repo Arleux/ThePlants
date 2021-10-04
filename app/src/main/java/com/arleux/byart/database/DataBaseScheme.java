@@ -7,7 +7,6 @@ public class DataBaseScheme {
             public static final String ACCOUNT_ID = "account_id";
             public static final String PLANT_ID = "id";
             public static final String NAME = "name";
-            public static final String PHOTO = "photo";
             public static final String SPECIES = "species";
             public static final String DEFAULT_WATERING_INTERVAL = "default_watering_interval";
             public static final String CUSTOM_WATERING_INTERVAL = "custom_watering_interval";

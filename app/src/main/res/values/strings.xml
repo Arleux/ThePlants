@@ -37,6 +37,7 @@
     <string name="dialog_message_plant_name">Выберите имя для вашего цветка</string>
     <string name="zamik">Замиокулькас</string>
     <string name="kaktus">Кактус</string>
+    <string name="defaultPlant">default</string>
     <string name="sign_out">Выйти из аккаунта</string>
     <string name="dialog_calendar_choose_date">Выберите дату последнего полива вашего цветка</string>
     <string name="dialog_calendar_choose_actual_date">Выберите актуальную дату</string>
